@@ -81,7 +81,7 @@ Por padrão é utilizado o SQL Server do docker, para alterar a conexão, modifi
 ```
 
 
-## Executando a aplicação usando o Docker
+## Executando a aplicação com Docker
 
 ```bash
 docker compose -f docker-compose.yml up -d --build

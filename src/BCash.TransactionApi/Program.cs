@@ -75,6 +75,10 @@ builder.Services.AddScoped<IBalanceService, BalanceService>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
+builder.Services.AddMiniProfiler(options =>
+{
+    options.RouteBasePath = "/profiler";
+}).AddEntityFramework();
 
 var app = builder.Build();
 
@@ -91,5 +95,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiniProfiler();
 
 app.Run();

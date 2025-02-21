@@ -80,6 +80,11 @@ builder.Services.AddStackExchangeRedisCache(options =>
     options.Configuration = builder.Configuration.GetConnectionString("RedisConnection");
 });
 
+builder.Services.AddMiniProfiler(options =>
+{
+    options.RouteBasePath = "/profiler";
+}).AddEntityFramework();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -91,8 +96,11 @@ if (app.Environment.IsDevelopment())
 
 //app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiniProfiler();
 
 app.Run();

@@ -32,6 +32,11 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddAuthorization();
 
+builder.Services.AddMiniProfiler(options =>
+{
+    options.RouteBasePath = "/profiler";
+}).AddEntityFramework();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -46,5 +51,7 @@ if (app.Environment.IsDevelopment())
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseMiniProfiler();
 
 app.Run();
