@@ -81,6 +81,6 @@ Por padrão é utilizado o SQL Server do docker, para alterar a conexão, modifi
 ```bash
 docker compose -f docker-compose.yml up -d --build
 docker compose -f docker-compose.application.yml up -d --build
-docker build -f ./src/BCash.TransactionApi/Dockerfile.migration -t bcash-migration
+docker build -f ./src/BCash.TransactionApi/Dockerfile.migration -t bcash-migration .
 docker run --rm --network bcash-network bcash-migration
 ```
