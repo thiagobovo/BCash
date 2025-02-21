@@ -33,6 +33,11 @@ Projeto de gestão de fluxo de caixa escrito na versão ASP.NET Core 8, implemen
 
 O cliente envia uma requisição ao serviço de autenticação, fornecendo nome de usuário e senha. Em resposta, o serviço de autenticação retorna um token JWT válido por uma hora, que pode ser utilizado nos serviços de transação e geração de relatórios.
 
+Usuário de teste:
+
+username=admin
+password=password
+
 ## **BCash.TransactionApi**
 
 ![bcash-auth](docs/bcash-transaction.png "Auth")
