@@ -18,4 +18,4 @@ ENV PATH="${PATH}:/root/.dotnet/tools"
 
 ENV ASPNETCORE_ENVIRONMENT="Production"
 
-CMD ["dotnet", "ef", "database", "update", "--project", "BCash.TransactionApi/TransactionApi.csproj"]
+CMD ["dotnet", "ef", "database", "update", "--project", "BCash.Infrastructure/BCash.Infrastructure.csproj", "--startup-project", "BCash.TransactionApi/BCash.TransactionApi.csproj"]

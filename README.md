@@ -78,4 +78,9 @@ Por padrão é utilizado o SQL Server do docker, para alterar a conexão, modifi
 
 ## Executando a aplicação usando o Docker
 
-Após executar o comando no terminal `docker-compose up --build`, basta abrir a url no navegador: `http://localhost:8000/swagger/`
+```bash
+docker compose -f docker-compose.yml up -d --build
+docker compose -f docker-compose.application.yml up -d --build
+docker build -f ./src/BCash.TransactionApi/Dockerfile.migration -t bcash-migration
+docker run --rm --network bcash-network bcash-migration
+```
