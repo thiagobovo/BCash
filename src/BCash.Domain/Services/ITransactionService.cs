@@ -10,6 +10,6 @@ namespace BCash.Domain.Services
 
         Task<PagedResponseOffset<Transaction>> GetTransactionPaged(DateTime initDate, DateTime endDate, int pageNumber, int pageSize);
 
-        Task<Transaction> ProcessTransaction(decimal amount, DateTime date, string type, string? description);
+        Task<Transaction> ProcessTransaction(Transaction transaction);
     }
 }

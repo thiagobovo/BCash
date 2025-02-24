@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
+using BCash.Domain.DTOs;
+using BCash.Domain.Entities;
 using BCash.Domain.Services;
-using BCash.TransactionApi.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -43,13 +44,14 @@ namespace BCash.TransactionApi.Controllers
         [Authorize]
         public async Task<IActionResult> CreateAsync([FromBody] TransactionRequestDTO transactionRequestDTO)
         {
-            var createdTransaction = await _transactionService.ProcessTransaction(transactionRequestDTO.Amount, transactionRequestDTO.Date, transactionRequestDTO.Type, transactionRequestDTO.Description);
-            TransactionDTO transaction = _mapper.Map<TransactionDTO>(createdTransaction);
+            var transaction = new Transaction(transactionRequestDTO.Amount, transactionRequestDTO.Date, transactionRequestDTO.Type, transactionRequestDTO.Description);
+            var createdTransaction = await _transactionService.ProcessTransaction(transaction);
+            TransactionDTO transactionDTO = _mapper.Map<TransactionDTO>(createdTransaction);
 
             var updatedBalance = await _balanceService.ProcessBalance(transactionRequestDTO.Amount, transactionRequestDTO.Date, transactionRequestDTO.Type);
-            BalanceDTO balance = _mapper.Map<BalanceDTO>(updatedBalance);
+            BalanceDTO balanceDTO = _mapper.Map<BalanceDTO>(updatedBalance);
 
-            return Ok(new { transaction, balance });
+            return Ok(new { transaction = transactionDTO, balance = balanceDTO });
         }
 
         [HttpDelete("delete/{id}")]

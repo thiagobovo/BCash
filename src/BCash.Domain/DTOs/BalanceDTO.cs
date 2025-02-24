@@ -1,4 +1,4 @@
-namespace BCash.TransactionApi.DTOs
+namespace BCash.Domain.DTOs
 {
     public class BalanceDTO
     {

@@ -28,10 +28,8 @@ namespace BCash.Service.Services
             return await _transactionRepository.GetByDatePaged(initDate, endDate, pageNumber, pageSize);
         }
 
-        public async Task<Transaction> ProcessTransaction(decimal amount, DateTime date, string type, string? description)
+        public async Task<Transaction> ProcessTransaction(Transaction transaction)
         {
-            var transaction = new Transaction(amount, date, type, description);
-
             return await _transactionRepository.Add(transaction);
         }
     }

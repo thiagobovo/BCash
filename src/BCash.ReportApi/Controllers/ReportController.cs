@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
+using BCash.Domain.DTOs;
 using BCash.Domain.Services;
-using BCash.ReportApi.DTOs;
-using BCash.TransactionApi.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;

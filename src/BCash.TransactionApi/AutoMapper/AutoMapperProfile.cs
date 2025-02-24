@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using BCash.Domain.DTOs;
 using BCash.Domain.Entities;
-using BCash.TransactionApi.DTOs;
 
 namespace BCash.TransactionApi.AutoMapper
 {

@@ -1,4 +1,4 @@
-﻿namespace BCash.ReportApi.DTOs
+﻿namespace BCash.Domain.DTOs
 {
     public record PagedResponseOffsetDTO<T>
     {

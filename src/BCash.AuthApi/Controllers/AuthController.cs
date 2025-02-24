@@ -1,4 +1,5 @@
-﻿using BCash.AuthApi.DTOs;
+﻿
+using BCash.Domain.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;

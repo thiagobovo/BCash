@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BCash.TransactionApi.DTOs
+namespace BCash.Domain.DTOs
 {
     public class TransactionRequestDTO
     {

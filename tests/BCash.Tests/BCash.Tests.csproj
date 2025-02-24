@@ -19,6 +19,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\src\BCash.Domain\BCash.Domain.csproj" />
+    <ProjectReference Include="..\..\src\BCash.ReportApi\BCash.ReportApi.csproj" />
     <ProjectReference Include="..\..\src\BCash.Service\BCash.Service.csproj" />
     <ProjectReference Include="..\..\src\BCash.TransactionApi\BCash.TransactionApi.csproj" />
   </ItemGroup>
