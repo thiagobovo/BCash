@@ -2,6 +2,7 @@
 using BCash.Domain.DTOs;
 using BCash.Domain.Entities;
 using BCash.Domain.Services;
+using BCash.TransactionApi.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,7 @@ namespace BCash.TransactionApi.Controllers
 {
     [ApiController]
     [Route("v1/transaction")]
+    [Authorize]
     public class TransactionController : Controller
     {
         private readonly ITransactionService _transactionService;
@@ -28,48 +30,45 @@ namespace BCash.TransactionApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Authorize]
         public async Task<IActionResult> GetAsync(Guid id)
         {
-            var resTransaction = await _transactionService.GetTransaction(id);
+            var resTransaction = await _transactionService.GetTransactionAsync(id);
             if (resTransaction == null)
                 return NotFound();
-            TransactionDTO transaction = _mapper.Map<TransactionDTO>(resTransaction);
+            TransactionDto transaction = _mapper.Map<TransactionDto>(resTransaction);
             return Ok(new { transaction });
         }
 
         [HttpPost("create")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [Authorize]
-        public async Task<IActionResult> CreateAsync([FromBody] TransactionRequestDTO transactionRequestDTO)
+        public async Task<IActionResult> CreateAsync([FromBody] TransactionRequestDto TransactionRequestDto)
         {
-            var transaction = new Transaction(transactionRequestDTO.Amount, transactionRequestDTO.Date, transactionRequestDTO.Type, transactionRequestDTO.Description);
-            var createdTransaction = await _transactionService.ProcessTransaction(transaction);
-            TransactionDTO transactionDTO = _mapper.Map<TransactionDTO>(createdTransaction);
+            var transaction = new Transaction(TransactionRequestDto.Amount, TransactionRequestDto.Date, TransactionRequestDto.Type, TransactionRequestDto.Description);
+            var createdTransaction = await _transactionService.ProcessTransactionAsync(transaction);
+            TransactionDto TransactionDto = _mapper.Map<TransactionDto>(createdTransaction);
 
-            var updatedBalance = await _balanceService.ProcessBalance(transactionRequestDTO.Amount, transactionRequestDTO.Date, transactionRequestDTO.Type);
-            BalanceDTO balanceDTO = _mapper.Map<BalanceDTO>(updatedBalance);
+            var updatedBalance = await _balanceService.ProcessBalanceAsync(TransactionRequestDto.Amount, TransactionRequestDto.Date, TransactionRequestDto.Type);
+            BalanceDto BalanceDto = _mapper.Map<BalanceDto>(updatedBalance);
 
-            return Ok(new { transaction = transactionDTO, balance = balanceDTO });
+            return Ok(new { transaction = TransactionDto, balance = BalanceDto });
         }
 
         [HttpDelete("delete/{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Authorize]
         public async Task<IActionResult> DeleteAsync(Guid id)
         {
-            var deletedTransaction = await _transactionService.GetTransaction(id);
+            var deletedTransaction = await _transactionService.GetTransactionAsync(id);
             if (deletedTransaction == null)
                 return NotFound();
-            await _transactionService.CancelTransaction(id);
+            await _transactionService.CancelTransactionAsync(id);
 
-            TransactionDTO transaction = _mapper.Map<TransactionDTO>(deletedTransaction);
+            TransactionDto transaction = _mapper.Map<TransactionDto>(deletedTransaction);
 
-            var updatedBalance = await _balanceService.ProcessBalance(deletedTransaction.Amount * -1, deletedTransaction.Date, deletedTransaction.Type);
-            BalanceDTO balance = _mapper.Map<BalanceDTO>(updatedBalance);
+            var updatedBalance = await _balanceService.ProcessBalanceAsync(deletedTransaction.Amount * -1, deletedTransaction.Date, deletedTransaction.Type);
+            BalanceDto balance = _mapper.Map<BalanceDto>(updatedBalance);
 
             return Ok(new { transaction, balance });
         }

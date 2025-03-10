@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
-using BCash.Domain.DTOs;
+using BCash.TransactionApi.DTOs;
 using BCash.Domain.Services;
 using BCash.TransactionApi.Controllers;
 using Moq;
-using System;
-using System.Threading.Tasks;
-using Xunit;
 
 namespace BCash.Tests.Controllers
 {
@@ -55,7 +52,7 @@ namespace BCash.Tests.Controllers
         {
             // Arrange
             var transactionController = this.CreateTransactionController();
-            TransactionRequestDTO transactionRequestDTO = new TransactionRequestDTO()
+            TransactionRequestDto TransactionRequestDto = new TransactionRequestDto()
             {
                 Amount = 1,
                 Date = DateTime.Now,
@@ -65,7 +62,7 @@ namespace BCash.Tests.Controllers
 
             // Act
             var result = await transactionController.CreateAsync(
-                transactionRequestDTO);
+                TransactionRequestDto);
 
             // Assert
             Assert.True(true);

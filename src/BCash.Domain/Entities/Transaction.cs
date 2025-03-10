@@ -2,8 +2,6 @@ namespace BCash.Domain.Entities
 {
     public class Transaction : BaseEntity
     {
-        public Guid Id { get; private set; }
-
         public decimal Amount { get; private set; }
         
         public DateTime Date { get; private set; }

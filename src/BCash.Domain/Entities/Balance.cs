@@ -2,8 +2,6 @@ namespace BCash.Domain.Entities
 {
     public class Balance : BaseEntity
     {
-        public Guid Id { get; private set; }
-
         public decimal TotalCredit { get; set; }
 
         public decimal TotalDebit { get; set; }

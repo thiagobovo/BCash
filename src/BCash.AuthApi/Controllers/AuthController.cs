@@ -1,5 +1,5 @@
 ﻿
-using BCash.Domain.DTOs;
+using BCash.AuthApi.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -20,13 +20,13 @@ namespace BCash.AuthApi.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] UserLoginDTO userLoginDTO)
+        public IActionResult Login([FromBody] LoginRequestDto loginRequestDto)
         {
             if (ModelState.IsValid)
             {
-                if (userLoginDTO.Username == "admin" && userLoginDTO.Password == "password")
+                if (loginRequestDto.Username == "admin" && loginRequestDto.Password == "password")
                 {
-                    var token = GenerateJwtToken(userLoginDTO.Username);
+                    var token = GenerateJwtToken(loginRequestDto.Username);
                     return Ok(new { token });
                 }
                 return Unauthorized();

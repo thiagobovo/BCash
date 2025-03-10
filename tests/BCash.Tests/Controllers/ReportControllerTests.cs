@@ -16,7 +16,6 @@ namespace BCash.Tests.Controllers
 
         private Mock<ITransactionService> mockTransactionService;
         private Mock<IBalanceService> mockBalanceService;
-        private Mock<IDistributedCache> mockDistributedCache;
         private Mock<IMapper> mockMapper;
 
         public ReportControllerTests()
@@ -25,7 +24,6 @@ namespace BCash.Tests.Controllers
 
             this.mockTransactionService = this.mockRepository.Create<ITransactionService>();
             this.mockBalanceService = this.mockRepository.Create<IBalanceService>();
-            this.mockDistributedCache = this.mockRepository.Create<IDistributedCache>();
             this.mockMapper = this.mockRepository.Create<IMapper>();
         }
 
@@ -34,7 +32,6 @@ namespace BCash.Tests.Controllers
             return new ReportController(
                 this.mockTransactionService.Object,
                 this.mockBalanceService.Object,
-                this.mockDistributedCache.Object,
                 this.mockMapper.Object);
         }
 

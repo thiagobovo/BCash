@@ -14,19 +14,19 @@ namespace BCash.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Transaction> Add(Transaction transaction)
+        public async Task<Transaction> AddAsync(Transaction transaction)
         {
            await _context.Transactions.AddAsync(transaction);
            await _context.SaveChangesAsync();
            return transaction;
         }
 
-        public async Task Delete(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
             await _context.Transactions.Where(x => id.Equals(x.Id)).ExecuteDeleteAsync();
         }
 
-        public async Task<PagedResponseOffset<Transaction>> GetByDatePaged(DateTime initDate, DateTime endDate, int pageNumber, int pageSize)
+        public async Task<PagedResponseOffset<Transaction>> GetByDatePagedAsync(DateTime initDate, DateTime endDate, int pageNumber, int pageSize)
         {
             var totalRecords = await _context.Transactions.AsNoTracking()
                 .Where(f => f.Date >= initDate && f.Date <= endDate)
@@ -42,6 +42,6 @@ namespace BCash.Infrastructure.Repositories
             return new PagedResponseOffset<Transaction>(transactions, pageNumber, pageSize, totalRecords);
         }
 
-        public async Task<Transaction> GetById(Guid id) => await _context.Transactions.FindAsync(id);
+        public async Task<Transaction> GetByIdAsync(Guid id) => await _context.Transactions.FindAsync(id);
     }
 }

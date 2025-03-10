@@ -1,5 +1,6 @@
 ﻿using BCash.Domain.Repositories;
 using BCash.Service.Services;
+using Microsoft.Extensions.Caching.Distributed;
 using Moq;
 using System;
 using System.Threading.Tasks;
@@ -13,17 +14,23 @@ namespace BCash.Tests.Services
 
         private Mock<IBalanceRepository> mockBalanceRepository;
 
+        private Mock<IDistributedCache> mockDistributedCache;
+
         public BalanceServiceTests()
         {
             this.mockRepository = new MockRepository(MockBehavior.Default);
 
             this.mockBalanceRepository = this.mockRepository.Create<IBalanceRepository>();
+
+            this.mockDistributedCache = this.mockRepository.Create<IDistributedCache>();
+
         }
 
         private BalanceService CreateService()
         {
             return new BalanceService(
-                this.mockBalanceRepository.Object);
+                this.mockBalanceRepository.Object,
+                this.mockDistributedCache.Object);
         }
 
         [Fact]
@@ -37,7 +44,7 @@ namespace BCash.Tests.Services
             int pageSize = 10;
 
             // Act
-            var result = await service.GetBalancePaged(
+            var result = await service.GetBalancePagedAsync(
                 initDate,
                 endDate,
                 pageNumber,
@@ -58,7 +65,7 @@ namespace BCash.Tests.Services
             string type = "C";
 
             // Act
-            var result = await service.ProcessBalance(
+            var result = await service.ProcessBalanceAsync(
                 amount,
                 date,
                 type);

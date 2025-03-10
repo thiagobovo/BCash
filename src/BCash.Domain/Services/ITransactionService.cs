@@ -4,12 +4,12 @@ namespace BCash.Domain.Services
 {
     public interface ITransactionService
     {
-        Task CancelTransaction(Guid id);
+        Task CancelTransactionAsync(Guid id);
 
-        Task<Transaction> GetTransaction(Guid id);
+        Task<Transaction> GetTransactionAsync(Guid id);
 
-        Task<PagedResponseOffset<Transaction>> GetTransactionPaged(DateTime initDate, DateTime endDate, int pageNumber, int pageSize);
+        Task<PagedResponseOffset<Transaction>> GetTransactionPagedAsync(DateTime initDate, DateTime endDate, int pageNumber, int pageSize);
 
-        Task<Transaction> ProcessTransaction(Transaction transaction);
+        Task<Transaction> ProcessTransactionAsync(Transaction transaction);
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BCash.Domain.DTOs
+namespace BCash.TransactionApi.DTOs
 {
-    public class TransactionRequestDTO
+    public class TransactionRequestDto
     {
         [Required]
         [Range(0.01, double.MaxValue)]

@@ -4,7 +4,7 @@ namespace BCash.Domain.Services
 {
     public interface IBalanceService
     {
-        Task<PagedResponseOffset<Balance>> GetBalancePaged(DateTime initDate, DateTime endDate, int pageNumber, int pageSize);
-        Task<Balance> ProcessBalance(decimal amount, DateTime date, string type);
+        Task<PagedResponseOffset<Balance>> GetBalancePagedAsync(DateTime initDate, DateTime endDate, int pageNumber, int pageSize);
+        Task<Balance> ProcessBalanceAsync(decimal amount, DateTime date, string type);
     }
 }

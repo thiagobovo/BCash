@@ -1,6 +1,7 @@
 ﻿using BCash.Domain.Entities;
 using BCash.Domain.Repositories;
 using BCash.Service.Services;
+using Microsoft.Extensions.Caching.Distributed;
 using Moq;
 using System;
 using System.Threading.Tasks;
@@ -14,17 +15,22 @@ namespace BCash.Tests.Services
 
         private Mock<ITransactionRepository> mockTransactionRepository;
 
+        private Mock<IDistributedCache> mockDistributedCache;
+
         public TransactionServiceTests()
         {
             this.mockRepository = new MockRepository(MockBehavior.Default);
 
             this.mockTransactionRepository = this.mockRepository.Create<ITransactionRepository>();
+
+            this.mockDistributedCache = this.mockRepository.Create<IDistributedCache>();
+
         }
 
         private TransactionService CreateService()
         {
             return new TransactionService(
-                this.mockTransactionRepository.Object);
+                this.mockTransactionRepository.Object, this.mockDistributedCache.Object);
         }
 
         [Fact]
@@ -35,7 +41,7 @@ namespace BCash.Tests.Services
             Guid id = default(global::System.Guid);
 
             // Act
-            await service.CancelTransaction(
+            await service.CancelTransactionAsync(
                 id);
 
             // Assert
@@ -51,7 +57,7 @@ namespace BCash.Tests.Services
             Guid id = default(global::System.Guid);
 
             // Act
-            var result = await service.GetTransaction(
+            var result = await service.GetTransactionAsync(
                 id);
 
             // Assert
@@ -70,7 +76,7 @@ namespace BCash.Tests.Services
             int pageSize = 10;
 
             // Act
-            var result = await service.GetTransactionPaged(
+            var result = await service.GetTransactionPagedAsync(
                 initDate,
                 endDate,
                 pageNumber,
@@ -89,7 +95,7 @@ namespace BCash.Tests.Services
             Transaction transaction = new Transaction(100, DateTime.Now, "C", null);
 
             // Act
-            var result = await service.ProcessTransaction(
+            var result = await service.ProcessTransactionAsync(
                 transaction);
 
             // Assert

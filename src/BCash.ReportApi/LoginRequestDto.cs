@@ -2,7 +2,7 @@
 
 namespace BCash.Domain.DTOs
 {
-    public class UserLoginDTO
+    public class LoginRequestDto
     {
         [Required]
         public required string Username { get; set; }
